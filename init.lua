@@ -758,36 +758,11 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S](rround) [R]eplace [)] [']
       require('mini.surround').setup()
-
-      require('mini.files').setup {
-        -- Customize mini.files settings
-        windows = {
-          -- Preview window settings
-          preview = true,
-          width_focus = 30, -- Width of the files window when focused
-          width_preview = 50, -- Width of the preview window
-        },
-        -- Optional: Customize mappings
-        mappings = {
-          close = 'q',
-          go_in = 'l',
-          go_in_plus = 'L',
-          go_out = 'h',
-          go_out_plus = 'H',
-          reset = '<BS>',
-          reveal_cwd = '@',
-          show_help = 'g?',
-          synchronize = '=',
-        },
-        -- Optional: Customize content of the files list
-        options = {
-          -- Whether to use advanced file operations
-          use_as_default_explorer = true,
-        },
-      }
+      -- require('mini.icons').setup()
 
       -- Optional: Add a keymapping to toggle mini.files
-      vim.keymap.set('n', '<leader>e', '<CMD>lua MiniFiles.open()<CR>', { desc = 'Open file explorer' })
+      -- vim.keymap.set('n', '<leader>e', '<CMD>lua MiniFiles.open()<CR>', { desc = 'Open file explorer' })
+      vim.keymap.set('n', '<leader>e', '<CMD>Oil<CR>', { desc = 'Open file explorer' })
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
