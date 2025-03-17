@@ -32,6 +32,10 @@ return { -- lazy.nvim
           lsp_doc_border = false, -- add a border to hover docs and signature help
         },
       }
+      require('notify').setup {
+        -- Set timeout for notifications (in milliseconds)
+        timeout = 500,
+      }
     end,
   },
 }
