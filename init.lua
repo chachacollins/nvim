@@ -269,18 +269,43 @@ require('lazy').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        -- pickers = {}
+        defaults = {
+          prompt_prefix = '   ',
+          selection_caret = ' ',
+          entry_prefix = ' ',
+          sorting_strategy = 'ascending',
+          layout_config = {
+            horizontal = {
+              prompt_position = 'top',
+              preview_width = 0.55,
+            },
+            width = 0.87,
+            height = 0.80,
+          },
+          border = false,
+          borderchars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+          winblend = 0,
+          results_title = false, -- Removes "Results" title
+          prompt_title = false, -- Removes "Find Files" title
+          preview_title = false, -- Removes "Preview" title
+          mappings = {
+            n = { ['q'] = require('telescope.actions').close },
+          },
+        },
+
+        extensions_list = { 'themes', 'terms' },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
         },
       }
+      vim.cmd [[
+  highlight TelescopePromptNormal guibg=none
+  highlight TelescopePromptBorder guibg=none
+  highlight TelescopeResultsBorder guibg=none
+  highlight TelescopePreviewBorder guibg=none
+  ]]
 
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
@@ -288,15 +313,15 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+      vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+      vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>/', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+      vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+      vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[S]earch [R]esume' })
+      vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- It's also possible to pass additional configuration options.
@@ -309,7 +334,7 @@ require('lazy').setup({
       end, { desc = '[S]earch [/] in Open Files' })
 
       -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set('n', '<leader>sn', function()
+      vim.keymap.set('n', '<leader>fn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
     end,
@@ -567,7 +592,7 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        '<leader>s',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
@@ -758,6 +783,17 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S](rround) [R]eplace [)] [']
       require('mini.surround').setup()
+      vim.keymap.set('n', 's', function()
+        return require('mini.surround').operator 'add'
+      end, { expr = true, desc = 'Add surrounding' })
+
+      vim.keymap.set('n', 'sd', function()
+        return require('mini.surround').operator 'delete'
+      end, { expr = true, desc = 'Delete surrounding' })
+
+      vim.keymap.set('n', 'sr', function()
+        return require('mini.surround').operator 'replace'
+      end, { expr = true, desc = 'Replace surrounding' })
       -- require('mini.icons').setup()
 
       -- Optional: Add a keymapping to toggle mini.files
