@@ -14,6 +14,7 @@ return {
           path = vim.fn.expand '~/Documents/chacha/',
         },
       },
+      disable_frontmatter = true,
 
       -- Additional configuration to ensure loading
       ui = { enable = false },
