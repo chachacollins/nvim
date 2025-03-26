@@ -666,11 +666,22 @@ require('lazy').setup({
           ['('] = { output = { left = '(', right = ')' } },
           [')'] = { output = { left = '( ', right = ' )' } },
 
-          [']'] = { output = { left = '[', right = ']' } },
-          ['['] = { output = { left = '[ ', right = ' ]' } },
+          ['['] = { output = { left = '[', right = ']' } },
+          [']'] = { output = { left = '[ ', right = ' ]' } },
 
           ['{'] = { output = { left = '{', right = '}' } },
           ['}'] = { output = { left = '{ ', right = ' }' } },
+        },
+        mappings = {
+          add = 's', -- Use 's' normally for adding surroundings
+          delete = 'sd',
+          find = 'sf',
+          find_left = 'sF',
+          highlight = 'sh',
+          replace = 'sr',
+          update_n_lines = 'sn',
+
+          -- Disable specific default actions by setting to false
         },
       }
       -- require('mini.icons').setup()
