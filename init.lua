@@ -2,10 +2,10 @@
 -- See `:help mapleader`
 --
 vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.maplocalleader = ' ';
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = true
+(vim).g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -661,18 +661,18 @@ require('lazy').setup({
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S](rround) [R]eplace [)] [']
-      require('mini.surround').setup()
-      vim.keymap.set('n', 's', function()
-        return require('mini.surround').operator 'add'
-      end, { expr = true, desc = 'Add surrounding' })
+      require('mini.surround').setup {
+        custom_surroundings = {
+          ['('] = { output = { left = '(', right = ')' } },
+          [')'] = { output = { left = '( ', right = ' )' } },
 
-      vim.keymap.set('n', 'sd', function()
-        return require('mini.surround').operator 'delete'
-      end, { expr = true, desc = 'Delete surrounding' })
+          [']'] = { output = { left = '[', right = ']' } },
+          ['['] = { output = { left = '[ ', right = ' ]' } },
 
-      vim.keymap.set('n', 'sr', function()
-        return require('mini.surround').operator 'replace'
-      end, { expr = true, desc = 'Replace surrounding' })
+          ['{'] = { output = { left = '{', right = '}' } },
+          ['}'] = { output = { left = '{ ', right = ' }' } },
+        },
+      }
       -- require('mini.icons').setup()
 
       -- Optional: Add a keymapping to toggle mini.files
