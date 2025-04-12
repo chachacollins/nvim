@@ -2,9 +2,9 @@
 -- See `:help mapleader`
 --
 vim.g.mapleader = ' '
-vim.g.maplocalleader = ' ';
+vim.g.maplocalleader = ' '
 
-(vim).g.have_nerd_font = true
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -99,6 +99,8 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
+vim.diagnostic.config { virtual_lines = { current_line = true } }
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -792,10 +794,10 @@ require('lazy').setup({
 })
 local lspconfig = require 'lspconfig'
 lspconfig.clangd.setup {
-  -- 	cmd = { "clangd", "--background-index", "--clang-tidy", "--log=verbose" },
-  -- 	init_options = {
-  -- 		fallbackFlags = { "-std=c++17" },
-  -- 	},
+  on_attach = function(client, bufnr)
+    -- Disable only the completion capability for clangd
+    client.server_capabilities.completionProvider = nil
+  end,
 }
 lspconfig.opts = {
   servers = {
