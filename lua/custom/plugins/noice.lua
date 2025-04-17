@@ -33,7 +33,7 @@ return { -- lazy.nvim
         },
       }
       require('notify').setup {
-        -- Set timeout for notifications (in milliseconds)
+        background_colour = '#000000',
         timeout = 500,
       }
     end,
