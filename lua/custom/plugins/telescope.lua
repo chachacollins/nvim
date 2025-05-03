@@ -48,7 +48,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
       -- You can put your default mappings / updates / etc. in here
       --  All the info you're looking for is in `:help telescope.setup()`
       --
-      defaults = {
+      Defaults = {
         theme = 'ivy',
         prompt_prefix = '   ',
         selection_caret = ' ',
@@ -62,6 +62,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
       },
       pickers = {
         find_files = {
+          prompt_prefix = '   ',
           theme = 'ivy',
           layout_config = {
             width = 0.87,
@@ -76,18 +77,21 @@ return { -- Fuzzy Finder (files, lsp, etc)
           },
         },
         live_grep = {
+          prompt_prefix = '   ',
           theme = 'ivy',
           layout_config = {
             width = 0.87,
             height = 0.80,
           },
           borderchars = {
+            prompt_prefix = '   ',
             prompt = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
             results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
             preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
           },
         },
         buffers = {
+          prompt_prefix = '   ',
           theme = 'ivy',
           layout_config = {
             width = 0.87,
@@ -100,6 +104,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           },
         },
         help_tags = {
+          prompt_prefix = '   ',
           theme = 'ivy',
           layout_config = {
             width = 0.87,
@@ -112,6 +117,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           },
         },
         keymaps = {
+          prompt_prefix = '   ',
           theme = 'ivy',
           layout_config = {
             width = 0.87,
@@ -124,6 +130,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           },
         },
         builtin = {
+          prompt_prefix = '   ',
           theme = 'ivy',
           layout_config = {
             width = 0.87,
@@ -136,6 +143,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           },
         },
         grep_string = {
+          prompt_prefix = '   ',
           theme = 'ivy',
           layout_config = {
             width = 0.87,
@@ -148,6 +156,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           },
         },
         diagnostics = {
+          prompt_prefix = '   ',
           theme = 'ivy',
           layout_config = {
             width = 0.87,
@@ -160,6 +169,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           },
         },
         resume = {
+          prompt_prefix = '   ',
           theme = 'ivy',
           layout_config = {
             width = 0.87,
@@ -172,6 +182,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           },
         },
         oldfiles = {
+          prompt_prefix = '   ',
           theme = 'ivy',
           layout_config = {
             width = 0.87,
@@ -195,13 +206,17 @@ return { -- Fuzzy Finder (files, lsp, etc)
     -- Enable Telescope extensions if they are installed
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')
-    local themes = require 'telescope.themes'
 
+    local scatch_buff = require 'custom.scratchbuffer'
     -- See `:help telescope.builtin`
     local builtin = require 'telescope.builtin'
+    local todo = function()
+      builtin.find_files { cwd = scatch_buff.expand_path '~/Documents/todo' }
+    end
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
     vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[S]earch [F]iles' })
+    vim.keymap.set('n', '<leader>ft', todo, { desc = '[S]earch [T]odo' })
     vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
     vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
     vim.keymap.set('n', '<leader>/', builtin.live_grep, { desc = '[S]earch by [G]rep' })

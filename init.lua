@@ -1,6 +1,3 @@
--- Set <space> as the leader key
--- See `:help mapleader`
---
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -26,7 +23,7 @@ vim.opt.fillchars = { eob = ' ' }
 vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+vim.opt.mouse = 'v'
 vim.opt.wrap = false
 
 -- Don't show the mode, since it's already in the status line
@@ -153,6 +150,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+local scatch_buff = require 'custom.scratchbuffer'
+scatch_buff.setup {}
+vim.keymap.set('n', '<leader>t', ':Td<CR>', { silent = true })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -550,7 +551,6 @@ require('lazy').setup({
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
-
       cmp.setup {
         snippet = {
           expand = function(args)
@@ -770,7 +770,6 @@ local lspconfig = require 'lspconfig'
 lspconfig.clangd.setup {
   on_attach = function(client, bufnr)
     -- Disable only the completion capability for clangd
-    client.server_capabilities.completionProvider = nil
   end,
 }
 lspconfig.opts = {
