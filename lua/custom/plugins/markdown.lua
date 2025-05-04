@@ -1,7 +1,3 @@
-vim.api.nvim_set_hl(0, 'RenderMarkdownCode', {
-  bg = '#000A0A',
-  fg = '#BAC2DE',
-})
 return {
   'MeanderingProgrammer/render-markdown.nvim',
   -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
@@ -16,6 +12,7 @@ return {
       code = {
         border = 'thin',
       },
+      heading = { backgrounds = { '' }, render_modes = { 'a' } },
     }
   end,
 }

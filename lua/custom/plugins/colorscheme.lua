@@ -88,6 +88,7 @@ return { -- You can easily change to a different colorscheme.
         gitsigns = true,
         hop = true,
         illuminate = { enabled = true },
+        render_markdown = true,
         native_lsp = { enabled = true, inlay_hints = { background = true } },
         neogit = true,
         neotree = true,
@@ -97,7 +98,6 @@ return { -- You can easily change to a different colorscheme.
         vimwiki = true,
         which_key = true,
         harpoon = true,
-        render_markdown = true,
       },
       highlight_overrides = {
         all = function(colors)
@@ -145,7 +145,6 @@ return { -- You can easily change to a different colorscheme.
             VertSplit = { bg = colors.base, fg = colors.surface0 },
             WhichKeyFloat = { bg = colors.mantle },
             YankHighlight = { bg = colors.surface2 },
-            FidgetTask = { fg = colors.subtext2 },
             FidgetTitle = { fg = colors.peach },
 
             IblIndent = { fg = colors.surface0 },

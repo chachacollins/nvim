@@ -54,7 +54,7 @@ local function load_file()
     return file_path
   else
     file = io.open(file_path, 'w') or error 'Could not create file'
-    file:write '# TODO'
+    file:write '# TODO\n---'
     file:close()
     return file_path
   end

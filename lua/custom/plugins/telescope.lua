@@ -37,10 +37,23 @@ return { -- Fuzzy Finder (files, lsp, etc)
     -- Two important keymaps to use while in Telescope are:
     --  - Insert mode: <c-/>
     --  - Normal mode: ?
-    --
     -- This opens a window that shows you all of the keymaps for the current
     -- Telescope picker. This is really useful to discover what Telescope can
     -- do as well as how to actually do it!
+    local function styling()
+      return {
+        prompt_prefix = '   ',
+        theme = 'ivy',
+        layout_strategy = 'horizontal',
+        layout_config = {
+          height = 0.9,
+          prompt_position = 'top',
+          width = 0.8,
+          preview_width = 0.5,
+        },
+      }
+    end
+    require('telescope.themes').get_ivy {}
 
     -- [[ Configure Telescope ]]
     -- See `:help telescope` and `:help telescope.setup()`
@@ -48,152 +61,17 @@ return { -- Fuzzy Finder (files, lsp, etc)
       -- You can put your default mappings / updates / etc. in here
       --  All the info you're looking for is in `:help telescope.setup()`
       --
-      Defaults = {
-        theme = 'ivy',
-        prompt_prefix = '   ',
-        selection_caret = ' ',
-        entry_prefix = ' ',
-        sorting_strategy = 'ascending',
-        layout_strategy = 'horizontal',
-        winblend = 0,
-        mappings = {
-          n = { ['q'] = require('telescope.actions').close },
-        },
-      },
       pickers = {
-        find_files = {
-          prompt_prefix = '   ',
-          theme = 'ivy',
-          layout_config = {
-            width = 0.87,
-            height = 0.80,
-            prompt_position = 'top',
-            preview_cutoff = 0,
-          },
-          borderchars = {
-            prompt = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-          },
-        },
-        live_grep = {
-          prompt_prefix = '   ',
-          theme = 'ivy',
-          layout_config = {
-            width = 0.87,
-            height = 0.80,
-          },
-          borderchars = {
-            prompt_prefix = '   ',
-            prompt = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-          },
-        },
-        buffers = {
-          prompt_prefix = '   ',
-          theme = 'ivy',
-          layout_config = {
-            width = 0.87,
-            height = 0.80,
-          },
-          borderchars = {
-            prompt = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-          },
-        },
-        help_tags = {
-          prompt_prefix = '   ',
-          theme = 'ivy',
-          layout_config = {
-            width = 0.87,
-            height = 0.80,
-          },
-          borderchars = {
-            prompt = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-          },
-        },
-        keymaps = {
-          prompt_prefix = '   ',
-          theme = 'ivy',
-          layout_config = {
-            width = 0.87,
-            height = 0.80,
-          },
-          borderchars = {
-            prompt = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-          },
-        },
-        builtin = {
-          prompt_prefix = '   ',
-          theme = 'ivy',
-          layout_config = {
-            width = 0.87,
-            height = 0.80,
-          },
-          borderchars = {
-            prompt = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-          },
-        },
-        grep_string = {
-          prompt_prefix = '   ',
-          theme = 'ivy',
-          layout_config = {
-            width = 0.87,
-            height = 0.80,
-          },
-          borderchars = {
-            prompt = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-          },
-        },
-        diagnostics = {
-          prompt_prefix = '   ',
-          theme = 'ivy',
-          layout_config = {
-            width = 0.87,
-            height = 0.80,
-          },
-          borderchars = {
-            prompt = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-          },
-        },
-        resume = {
-          prompt_prefix = '   ',
-          theme = 'ivy',
-          layout_config = {
-            width = 0.87,
-            height = 0.80,
-          },
-          borderchars = {
-            prompt = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-          },
-        },
-        oldfiles = {
-          prompt_prefix = '   ',
-          theme = 'ivy',
-          layout_config = {
-            width = 0.87,
-            height = 0.80,
-          },
-          borderchars = {
-            prompt = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-          },
-        },
+        find_files = styling(),
+        live_grep = styling(),
+        buffers = styling(),
+        help_tags = styling(),
+        keymaps = styling(),
+        builtin = styling(),
+        grep_string = styling(),
+        diagnostics = styling(),
+        resume = styling(),
+        oldfiles = styling(),
       },
 
       extensions = {
