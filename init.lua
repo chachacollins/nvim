@@ -2,6 +2,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 vim.g.have_nerd_font = true
+vim.g.cmp_enabled = false
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -430,20 +431,13 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      local lspconfig = require 'lspconfig'
+      lspconfig.clangd.setup {}
       local servers = {
-        -- clangd = {},
         gopls = {},
         -- pyright = {},
         rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`ts_ls`) will work just fine
         ts_ls = {},
-        --
-
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -555,23 +549,8 @@ require('lazy').setup({
           end
           return 'make install_jsregexp'
         end)(),
-        dependencies = {
-          -- `friendly-snippets` contains a variety of premade snippets.
-          --    See the README about individual language/framework/plugin snippets:
-          --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
-        },
+        dependencies = {},
       },
-      -- 'saadparwaiz1/cmp_luasnip',
-      --
-      -- Adds other completion capabilities.
-      --  nvim-cmp does not ship with all sources by default. They are split
-      --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
     },
@@ -580,7 +559,26 @@ require('lazy').setup({
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
+
+      -- Function to toggle completion on/off
+      local toggle_completion = function()
+        vim.g.cmp_enabled = not vim.g.cmp_enabled
+        if vim.g.cmp_enabled then
+          cmp.setup.buffer { enabled = true }
+          print 'Autocompletion enabled'
+        else
+          cmp.setup.buffer { enabled = false }
+          print 'Autocompletion disabled'
+        end
+      end
+
+      -- Map the toggle function to a keybinding (leader q)
+      vim.keymap.set('n', '<leader>q', toggle_completion, { desc = 'Toggle autocompletion' })
+
       cmp.setup {
+        enabled = function()
+          return vim.g.cmp_enabled
+        end,
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -795,20 +793,11 @@ require('lazy').setup({
     },
   },
 })
-local lspconfig = require 'lspconfig'
-lspconfig.clangd.setup {
-  on_attach = function(client, bufnr)
-    -- Disable only the completion capability for clangd
-    client.server_capabilities.completionProvider = nil
-  end,
-}
-lspconfig.opts = {
-  servers = {
-    clangd = {
-      mason = false,
-    },
-  },
-}
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
---
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = '*.h',
+  callback = function()
+    vim.bo.filetype = 'c'
+  end,
+})
