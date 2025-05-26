@@ -43,17 +43,11 @@ return { -- Fuzzy Finder (files, lsp, etc)
     local function styling()
       return {
         prompt_prefix = '   ',
-        theme = 'ivy',
-        layout_strategy = 'horizontal',
-        layout_config = {
-          height = 0.9,
-          prompt_position = 'top',
-          width = 0.8,
-          preview_width = 0.5,
-        },
+        theme = 'dropdown',
+        preview = false,
+        previewer = false,
       }
     end
-    require('telescope.themes').get_ivy {}
 
     -- [[ Configure Telescope ]]
     -- See `:help telescope` and `:help telescope.setup()`
