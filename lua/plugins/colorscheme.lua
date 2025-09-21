@@ -17,6 +17,10 @@ return { -- You can easily change to a different colorscheme.
   end,
   config = function()
     require('catppuccin').setup {
+      float = {
+        transparent = false, -- enable transparent floating windows
+        solid = false, -- use solid styling for floating windows, see |winborder|
+      },
       background = {
         light = 'latte',
         dark = 'mocha',

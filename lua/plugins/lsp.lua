@@ -194,11 +194,21 @@ return {
     --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
     --  - settings (table): Override the default settings passed when initializing the server.
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-    require('lspconfig').clangd.setup {
+
+    vim.lsp.config.clangd = {
+      cmd = {
+        'clangd',
+        '--clang-tidy',
+        '--background-index',
+        '--offset-encoding=utf-8',
+      },
+      root_markers = { '.clangd', 'compile_commands.json' },
+      filetypes = { 'c', 'cpp' },
       init_options = {
         -- fallbackFlags = { '-std=c23' },
       },
     }
+    vim.lsp.enable 'clangd'
     local servers = {
       gopls = {},
       -- pyright = {},
