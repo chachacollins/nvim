@@ -7,20 +7,9 @@ return {
       -- Configure custom parser for Perkelang
       local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
       ---@diagnostic disable-next-line: inject-field
-      parser_config.perkelang = {
-        install_info = {
-          url = vim.fn.expand '~/.local/share/nvim/parsers/tree-sitter-perkelang',
-          files = { 'src/parser.c' },
-          branch = 'main',
-          generate_requires_npm = false,
-          requires_generate_from_grammar = false,
-        },
-        filetype = 'perkelang',
-      }
-
       -- Configure treesitter
       require('nvim-treesitter.configs').setup {
-        ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'javascript', 'perkelang' },
+          ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'javascript', },
         -- Autoinstall languages that are not installed
         auto_install = true,
         highlight = {
@@ -30,7 +19,7 @@ return {
           --  the list of additional_vim_regex_highlighting and disabled languages for indent.
           additional_vim_regex_highlighting = { 'ruby' },
         },
-        indent = { enable = true, disable = { 'ruby' } },
+        indent = { enable = false, disable = { 'ruby' } },
       }
     end,
     -- There are additional nvim-treesitter modules that you can use to interact

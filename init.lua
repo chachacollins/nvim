@@ -7,13 +7,17 @@ vim.opt.number = true
 vim.opt.fillchars = { eob = ' ' }
 vim.opt.relativenumber = true
 vim.opt.mouse = 'v'
-vim.opt.showmode = false
+vim.opt.showcmd = false
+vim.opt.ruler = false
+vim.opt.showmode = true
+vim.opt.laststatus = 0
 vim.opt.wrap = false
-vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.signcolumn = 'yes'
+vim.opt.smartindent = false
+vim.opt.autoindent = true
+vim.opt.signcolumn = 'no'
 vim.opt.updatetime = 250
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
@@ -28,15 +32,10 @@ vim.o.guicursor = 'n-v-c:block,i-ci-ve:bloc,r-cr-o:bloc'
 vim.opt.list = true
 vim.opt.listchars = { tab = '  ', trail = '·', nbsp = ' ' }
 vim.opt.inccommand = 'split'
-vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.o.swapfile = false
 
 -- [[ KEYBINDS ]]
-vim.keymap.set('n', 'gl', '$', { noremap = true, silent = true, desc = 'Go to end of line' })
-vim.keymap.set('n', 'gh', '_', { noremap = true, silent = true, desc = 'Go to first non-blank character' })
-vim.keymap.set('v', 'gl', '$', { noremap = true, silent = true, desc = 'Go to end of line' })
-vim.keymap.set('v', 'gh', '_', { noremap = true, silent = true, desc = 'Go to first non-blank character' })
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
@@ -80,13 +79,6 @@ require('lazy').setup {
     event = 'VimEnter',
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = { signs = false },
-  },
-  { -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help ibl`
-    main = 'ibl',
-    opts = {},
   },
   { import = 'plugins' },
 }
