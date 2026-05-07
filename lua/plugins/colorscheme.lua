@@ -290,6 +290,7 @@ return { -- You can easily change to a different colorscheme.
             ['@function.macro'] = { link = 'TSFuncMacro' },
             ['@include'] = { link = 'TSInclude' },
             ['@keyword.import.c'] = { link = 'TSDefine' },
+            ['@keyword.import.cpp'] = { link = 'TSDefine' },
             ['@keyword'] = { link = 'TSKeyword' },
             ['@keyword.function'] = { link = 'TSKeywordFunction' },
             ['@keyword.operator'] = { link = 'TSKeywordOperator' },

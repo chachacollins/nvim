@@ -29,8 +29,8 @@ vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
 vim.o.guicursor = 'n-v-c:block,i-ci-ve:bloc,r-cr-o:bloc'
-vim.opt.list = true
-vim.opt.listchars = { tab = '  ', trail = '·', nbsp = ' ' }
+vim.o.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 vim.opt.scrolloff = 10
 vim.o.swapfile = false
@@ -43,23 +43,11 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Do something amazing' })
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Wow this really is awesome' })
-vim.api.nvim_set_keymap('n', '<S-x>', ':bdelete<CR>', { noremap = true, silent = true })
+vim.keymap.set('i', '<C-e>', '<C-o>$')
+vim.keymap.set('i', '<C-a>', '<C-o>_')
+vim.keymap.set('i', '<C-k>', '<C-o>D')
 vim.api.nvim_set_keymap('v', 'J', ":move '>+1<CR>gv-gv", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'K', ":move '<-2<CR>gv-gv", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>v', ':vsplit<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>x', ':close<CR>', { noremap = true, silent = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
-vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, {
-  desc = 'Show line diagnostics',
-  noremap = true,
-  silent = true,
-})
 vim.keymap.set('n', '<leader>e', '<CMD>Oil<CR>', { desc = 'Open file explorer' })
 
 -- [[ PLUGINS ]]
